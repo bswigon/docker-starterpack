@@ -1,0 +1,85 @@
+services:
+    # 1. Usługa PHP-FPM z aplikacją Symfony
+    php:
+        build:
+            context: .
+            # Plik Dockerfile, który stworzymy dla konfiguracji PHP
+            dockerfile: Dockerfile
+        # Zmienna środowiskowa dla konfiguracji Symfony/Messenger
+        environment:
+            # Zmień na swój port bazy danych jeśli 3306 jest zajęty
+            DATABASE_URL: 'mysql://symfony_user:symfony_password@database:3306/symfony_db?serverVersion=8.0&charset=utf8mb4'
+            # Domyślne hosty/porty dla Redis i RabbitMQ
+            REDIS_URL: 'redis://redis'
+            MESSENGER_TRANSPORT_DSN: 'amqp://guest:guest@rabbitmq:5672/%2f/messages'
+        volumes:
+            # Montowanie kodu aplikacji
+            - ./symfony_app:/var/www/html
+        # Zależność od bazy danych
+        depends_on:
+            - database
+            - redis
+            - rabbitmq
+        restart: always
+
+    # 2. Serwer WWW (Nginx)
+    nginx:
+        image: nginx:stable-alpine
+        ports:
+            # Aplikacja dostępna na http://localhost:8080
+            - "8080:80"
+        volumes:
+            - ./symfony_app:/var/www/html
+            # Plik konfiguracyjny Nginx, który musisz stworzyć
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - php
+        restart: always
+
+    # 3. Baza Danych (MySQL)
+    database:
+        # Najnowsza wersja MySQL
+        image: mysql:8.0
+        ports:
+            # Port hosta:Port kontenera
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: symfony_db
+            MYSQL_USER: symfony_user
+            MYSQL_PASSWORD: symfony_password
+        volumes:
+            - db-data:/var/lib/mysql
+        restart: always
+
+    # 4. Pamięć Podręczna (Redis)
+    redis:
+        # Oficjalny obraz Redis
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis-data:/data
+        restart: always
+
+    # 5. Broker Wiadomości (RabbitMQ)
+    rabbitmq:
+        # Obraz z interfejsem zarządzania (management UI)
+        image: rabbitmq:3-management
+        ports:
+            # Domyślny port AMQP
+            - "5672:5672"
+            # Port interfejsu zarządzania (dostępny na http://localhost:15672)
+            - "15672:15672"
+        environment:
+            # Użyj domyślnych danych logowania dla prostoty
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+        volumes:
+            - rabbitmq-data:/var/lib/rabbitmq
+        restart: always
+
+volumes:
+    db-data:
+    redis-data:
+    rabbitmq-data:

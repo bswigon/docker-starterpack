@@ -1,0 +1,21 @@
+# Symfony
+symfony_app/vendor/
+symfony_app/var/
+symfony_app/node_modules/
+symfony_app/.env.local
+symfony_app/.env.local.php
+symfony_app/.env.*.local
+symfony_app/public/bundles/
+symfony_app/public/build/
+symfony_app/public/assets/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

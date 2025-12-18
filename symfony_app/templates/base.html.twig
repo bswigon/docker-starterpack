@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}CodeDeveloper - Zakoduj się na sukces{% endblock %}</title>
+    <meta name="description" content="Codedeveloper"/>
+    <meta property="og:description" content="Codedeveloper"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"/>
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('build/images/icon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('build/images/icon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('build/images/icon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('build/images/icon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('build/images/icon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('build/images/icon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('build/images/icon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('build/images/icon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/images/icon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('build/images/icon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/images/icon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('build/images/icon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/images/icon/favicon-16x16.png') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('build/images/icon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <style>
+        li.active {
+            background: #063;
+            padding: 0 12px;
+        }
+
+        li.active a {
+            color: #ffffff;
+        }
+
+        li.active a:hover {
+            color: #ffff00;
+        }
+
+        .copy {
+            font-size: 10px;
+        }
+        .top {
+            background-size: cover !important;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173528552-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-173528552-1');
+    </script>
+    <style>
+        .nav-menu {
+            float: right;
+            margin: 30px 14px;
+            height: 30px;
+            line-height: 90px;
+            cursor: pointer;
+            display: none;
+        }
+        .nav-menu span {
+            display: block;
+            width: 33px;
+            height: 4px;
+            margin-bottom: 5px;
+            position: relative;
+            background: #063;
+            border-radius: 3px;
+            z-index: 1;
+        }
+        @media  (max-width: 767px) {
+            .nav-menu {
+                display: block;
+            }
+            .navigation {
+                display: none;
+                margin-top: 90px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                background: #ffff;
+                margin-left: -40px;
+            }
+            .navigation a {
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container-full menu">
+    <div class="container-mq">
+        <div class="row">
+            <a href="/"><img data-src="{{ asset('build/images/logo.svg') }}" alt="logo"
+                             class="logo transitions lazy"/></a>
+            <div class="nav-menu nav-menu-js">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navigation nav">
+                <li{% if app.request.get('_route') == 'about-me' %} class="active"{% endif %}>
+                    <a href="{{ path('about-me') }}" class="transitions">O mnie</a>
+                </li>
+                <li{% if app.request.get('_route') == 'blog' %} class="active"{% endif %}>
+                    <a href="{{ path('blog') }}" class="transitions">Blog</a>
+                </li>
+                <li{% if app.request.get('_route') == 'offer' %} class="active"{% endif %}>
+                    <a href="{{ path('offer') }}" class="transitions">Oferta</a>
+                </li>
+                <li{% if app.request.get('_route') == 'cv' %} class="active"{% endif %}>
+                    <a href="{{ path('cv') }}" class="transitions"> CV </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="nav-sep"></div>
+
+{% block body %}{% endblock %}
+
+<div class="container-full silver">
+    <div class="container-mq">
+        <div class="row">
+            <ul class="flex-container flex-content-left">
+                <li class="flex-item w20"></li>
+                <li class="flex-item">
+                    <img data-src="{{ asset('build/images/cloud.jpg') }}" alt="cloud" class="img-mq lazy"/>
+                </li>
+                <li class="flex-item">
+                    <div class="text-center c_green">
+                        <div class="interest">Jesteś zainteresowany?</div>
+                        <div class="contact-us">Skontaktuj sie ze mną!</div>
+                        <a href="https://maps.app.goo.gl/i6ERifyodadhL7uL9" class="button" target="_blank">Z niecierpliwością
+                            czekam na nowe wyzwania</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-full no-padding slider">
+    <div class="row">
+        <ul class="flex-container">
+            <li class="flex-item flex-full">
+                <img data-src="{{ asset('build/images/slider/5.jpg') }}" class="img-mq lazy" alt="picture"/>
+            </li>
+            <li class="flex-item flex-full">
+                <img data-src="{{ asset('build/images/slider/2.jpg') }}" class="img-mq lazy" alt="picture"/>
+            </li>
+            <li class="flex-item flex-full">
+                <img data-src="{{ asset('build/images/slider/3.jpg') }}" class="img-mq lazy" alt="picture"/>
+            </li>
+            <li class="flex-item flex-full">
+                <img data-src="{{ asset('build/images/slider/4.jpg') }}" class="img-mq lazy" alt="picture"/>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-full dark footer">
+    <div class="container-mq">
+        <div class="row">
+            <div class="text-center">
+                Copyright &copy;
+                <a href="https://www.linkedin.com/company/52116464" target="_blank">
+                    codedeveloper.com.pl
+                </a>
+                (2007-{{ 'now' | date('Y') }})
+                <div class="text-center copy">
+                    <a href="https://www.linkedin.com/in/bartlomiej-swigon/" target="_blank">
+                        Bartłomiej Świgoń
+                    </a>
+                </div>
+                <div class="text-center copy">Warszawa</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let navMenuButton = document.querySelector(".nav-menu-js");
+    let navigation = document.querySelector(".navigation");
+
+    navMenuButton.addEventListener("click", function(e){
+        e.currentTarget.classList.toggle("open");
+        if (e.currentTarget.classList.contains("open") !== false) {
+            navigation.style.display = "block";
+        } else {
+            navigation.style.display = "none";
+        }
+    });
+</script>
+
+<!-- -->
+<style>
+    .floating-bar {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        max-width: 400px;
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+        color: #222;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all .3s ease;
+    }
+    .floating-bar.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .floating-bar a {
+        color: #0a66c2;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .floating-bar a:hover {
+        text-decoration: underline;
+    }
+    .floating-bar button {
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 18px;
+        cursor: pointer;
+        margin-left: auto;
+    }
+</style>
+
+<div class="floating-bar" id="floatingBar">
+    💼 Szukam pracy jako <strong>programista PHP</strong>
+    <a href="https://www.linkedin.com/in/bartlomiej-swigon/" target="_blank" rel="noopener">LinkedIn</a>
+    <button onclick="closeBar()" aria-label="Zamknij pasek">&times;</button>
+</div>
+
+<script>
+    function closeBar() {
+        document.getElementById('floatingBar').style.display = 'none';
+        localStorage.setItem('hideFloatingBar', '1');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        if (!localStorage.getItem('hideFloatingBar')) {
+            setTimeout(() => {
+                document.getElementById('floatingBar').classList.add('show');
+            }, 600);
+        }
+    });
+</script>
+
+<!-- -->
+</body>
+</html>
